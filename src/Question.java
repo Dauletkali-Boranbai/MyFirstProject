@@ -31,7 +31,7 @@ public class Question {
     }
 
     public void printQuestion() {
-        System.out.println("Question: " + text + "\n" + "Score: " + score);
+        System.out.println("Question: " + text + ", Score: " + score);
     }
 }
 

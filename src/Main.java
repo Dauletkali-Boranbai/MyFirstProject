@@ -8,7 +8,7 @@ public class Main {
         );
 
         Candidate c1 = new Candidate("Ali", 1);
-        Candidate c2 = new Candidate("Aruzhan", 2);
+        Candidate c2 = new Candidate("Sultan", 2);
 
         Exam exam = new Exam("Geography", q1);
 

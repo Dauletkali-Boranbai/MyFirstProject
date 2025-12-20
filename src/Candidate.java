@@ -26,7 +26,7 @@ public class Candidate {
     }
 
     public void printCandidate() {
-        System.out.println("Candidate: " + name + "\n" + "ID: " + id + "\n" + "Score: " + totalScore);
+        System.out.println("Candidate: " + name + ", ID: " + id + ", Score: " + totalScore);
     }
 }
 
