@@ -1,32 +1,42 @@
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
+        Candidate c1 = new Candidate("Ali");
+        Candidate c2 = new Candidate("Dana");
 
-        Question q1 = new Question(
-                "What is the capital of Kazakhstan?",
-                "Astana",
-                10
+
+        Question q1 = new SingleChoiceQuestion("2 + 2 = ?", "4", 5);
+        Question q2 = new MultipleChoiceQuestion(
+                "Select programming languages",
+                Arrays.asList("Java", "Python"),
+                5
         );
 
-        Candidate c1 = new Candidate("Ali", 1);
-        Candidate c2 = new Candidate("Sultan", 2);
 
-        Exam exam = new Exam("Geography", q1);
-
-        q1.printQuestion();
-
-        exam.conductExam(c1, "Astana");
-        exam.conductExam(c2, "Almaty");
-
-        c1.printCandidate();
-        c2.printCandidate();
+        Exam exam = new Exam();
+        exam.addQuestion(q1);
+        exam.addQuestion(q2);
 
 
-        if (c1.getTotalScore() > c2.getTotalScore()) {
-            System.out.println(c1.getName() + " scored higher than " + c2.getName());
-        } else if (c1.getTotalScore() < c2.getTotalScore()) {
-            System.out.println(c2.getName() + " scored higher than " + c1.getName());
-        } else {
-            System.out.println("Both candidates have equal scores");
-        }
+        Map<Question, List<String>> a1 = new HashMap<>();
+        a1.put(q1, List.of("4"));
+        a1.put(q2, List.of("Java", "Python"));
+
+
+        Map<Question, List<String>> a2 = new HashMap<>();
+        a2.put(q1, List.of("3"));
+        a2.put(q2, List.of("Java"));
+
+
+        exam.conductExam(c1, a1);
+        exam.conductExam(c2, a2);
+
+
+        System.out.println("Results:");
+        exam.printResultsSorted();
+
+
+        System.out.println("Passed candidates: " + exam.getPassed(5));
     }
 }

@@ -1,38 +1,23 @@
-public class Question {
-    private String text;
-    private String correctAnswer;
-    private int score;
+import java.util.*;
 
-    public Question(String text, String correctAnswer, int score) {
+abstract class Question {
+    protected String text;
+    protected int points;
+
+    public Question(String text, int points) {
         this.text = text;
-        this.correctAnswer = correctAnswer;
-        this.score = score;
+        this.points = points;
     }
 
-    public String getText() {
-        return text;
-    }
-    public void setText(String text) {
-        this.text = text;
+    public int getPoints() {
+        return points;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
-    }
-    public void setCorrectAnswer(String correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
+    public abstract boolean checkAnswer(List<String> answers);
 
-    public int getScore() {
-        return score;
-    }
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public void printQuestion() {
-        System.out.println("Question: " + text + ", Score: " + score);
+    @Override
+    public String toString() {
+        return text + " (" + points + " points)";
     }
 }
-
 

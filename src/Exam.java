@@ -1,27 +1,43 @@
-public class Exam {
-    private String subject;
-    private Question question;
+import java.util.*;
 
-    public Exam(String subject, Question question) {
-        this.subject = subject;
-        this.question = question;
+class Exam {
+    private List<Question> questions = new ArrayList<>();
+    private Map<Candidate, Integer> results = new HashMap<>();
+
+
+    public void addQuestion(Question q) {
+        questions.add(q);
     }
 
-    public String getSubject() {
-        return subject;
-    }
 
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void conductExam(Candidate candidate, String answer) {
-        if (answer.equalsIgnoreCase(question.getCorrectAnswer())) {
-            candidate.addScore(question.getScore());
-            System.out.println(candidate.getName() + ": Correct answer!");
-        } else {
-            System.out.println(candidate.getName() + ": Wrong answer.");
+    public void conductExam(Candidate candidate, Map<Question, List<String>> answers) {
+        int score = 0;
+        for (Question q : questions) {
+            if (q.checkAnswer(answers.get(q))) {
+                score += q.getPoints();
+            }
         }
+        results.put(candidate, score);
+    }
+
+
+    // Filtering
+    public List<Candidate> getPassed(int minScore) {
+        List<Candidate> passed = new ArrayList<>();
+        for (Candidate c : results.keySet()) {
+            if (results.get(c) >= minScore) {
+                passed.add(c);
+            }
+        }
+        return passed;
+    }
+
+
+    // Sorting
+    public void printResultsSorted() {
+        results.entrySet().stream()
+                .sorted(Map.Entry.<Candidate, Integer>comparingByValue().reversed())
+                .forEach(e -> System.out.println(e.getKey().getName() + ": " + e.getValue()));
     }
 }
 
